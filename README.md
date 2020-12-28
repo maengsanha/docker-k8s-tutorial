@@ -30,6 +30,28 @@
   docker version
   ```
 
+  - build Docker image
+  ```sh
+  docker build -t tutorial .
+  ```
+
+  - check Docker image
+  ```sh
+  docker images
+  ```
+
+  - run container
+  ```sh
+  docker run -d -p 3000:8080 tutorial
+  docker run -d -p 3001:8080 tutorial
+  docker run -d -p 3002:8080 tutorial
+  ```
+
+  - check logs
+  ```sh
+  docker logs {CONTAINER ID}
+  ```
+
 
 
 2. [Kubernetes](https://kubernetes.io/)
@@ -90,7 +112,7 @@
 
    
 
- 
+
 
 - Reference
   - [How to Install Docker on Ubuntu 18.04](https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04)

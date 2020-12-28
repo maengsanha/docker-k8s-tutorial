@@ -1,11 +1,15 @@
+FROM golang:1.15.6 AS build
+
+WORKDIR /go/src/github.com/maengsanha
+RUN go get github.com/maengsanha/docker-k8s-tutorial
+
+WORKDIR /go/src/github.com/maengsanha/docker-k8s-tutorial
+RUN make build
+
+###
+
 FROM ubuntu:18.04
 
-RUN apt-get -y update
+COPY --from=build /go/src/github.com/maengsanha/docker-k8s-tutorial/bin/tutorial /bin/
 
-COPY bin/tutorial /
-
-RUN chmod +x tutorial
-
-EXPOSE 8080
-
-CMD ./tutorial
+CMD /bin/tutorial
