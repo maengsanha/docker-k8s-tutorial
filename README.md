@@ -6,11 +6,6 @@
 - [Kubernetes install guide](https://github.com/maengsanha/docker-k8s-tutorial/blob/master/doc/kubernetes-install.md)
 - After set up kubernetes, follow as below.
 
-1. Get source code
-  ```bash
-	$ git clone https://github.com/maengsanha/docker-k8s-tutorial.git
-	```
-
 
 
 - Reference
