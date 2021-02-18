@@ -7,10 +7,10 @@ RM = rm
 all: build
 
 build:
-	$(GOBUILD) -gcflags -m -o $(BINARY_FILE) -v .
+	$(GOBUILD) -o $(BINARY_FILE) .
 
 run:
-	$(GORUN) -gcflags -m -v .
+	$(GORUN) .
 
 clean:
 	$(RM) -f $(BINARY_FILE)
