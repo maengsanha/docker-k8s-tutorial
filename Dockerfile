@@ -1,15 +1,17 @@
-FROM golang:1.15.6 AS build
+FROM golang:1.15.8 AS build
 
-WORKDIR /go/src/github.com/maengsanha
 RUN go get github.com/maengsanha/docker-k8s-tutorial
 
 WORKDIR /go/src/github.com/maengsanha/docker-k8s-tutorial
+
 RUN make build
 
 ###
 
-FROM ubuntu:18.04
+FROM alpine:3.13.2
 
-COPY --from=build /go/src/github.com/maengsanha/docker-k8s-tutorial/bin/tutorial /bin/
+COPY --from=build /go/src/github.com/maengsanha/docker-k8s-tutorial/bin/tutorial /bin
+
+EXPOSE 8080
 
 CMD /bin/tutorial
