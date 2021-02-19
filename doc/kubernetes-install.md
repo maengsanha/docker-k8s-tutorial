@@ -1,6 +1,6 @@
 ### [Kubernetes](https://kubernetes.io/) installation guide
 
-- Install `kubeadm`, `kubelet`, `kubectl` on master and nodes
+- Install `kubeadm`, `kubelet`, `kubectl` on master and nodes<br>
 	First, run `sudo -i` to enter by `root`
 	- on Linux (Debian based)
 	```bash
@@ -12,7 +12,7 @@
 	apt-get update
 	apt-get install  -y kubelet kubeadm kubectl
 	apt-mark hold kubelet kubeadm kubectl
-  systemctl enable --now kubelet
+  	systemctl enable --now kubelet
 	swapoff -a
 	```
 
