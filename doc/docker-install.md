@@ -1,4 +1,4 @@
-#### [Docker](https://www.docker.com/) installation guide
+### [Docker](https://www.docker.com/) installation guide
 
 - Install Docker
 	- on Linux (Debian based)
@@ -6,16 +6,19 @@
 	$ sudo apt-get update
 	$ sudo apt-get install curl
 	$ curl -fsSL https://get.docker.com/ | sudo sh
+  $ mkdir -p /etc/systemd/system/docker.service.d
 	```
 	- on Linux (Red Hat based)
 	```bash
 	$ sudo yum update
 	$ sudo yum install curl
 	$ curl -fsSL https://get.docker.com/ | sudo sh
-	```
+  $ mkdir -p /etc/systemd/system/docker.service.d
+  ```
 	- on Mac OS
 	```bash
 	$ brew install --cask docker
+  $ mkdir -p /etc/systemd/system/docker.service.d
 	```
 
 <br>
@@ -28,7 +31,7 @@
 	
 	- to make docker run when startup, run
 	```bash
-	$ sudo systemctl enable docker
+	$ sudo systemctl enable --now docker
 	```
 
 	- to use docker without `sudo`, run
@@ -87,8 +90,8 @@
 	$ docker build -t tutorial .
 	```
 	```bash
-	Sending build context to Docker daemon  103.4kB
-	Step 1/8 : FROM golang:1.15.8 AS build
+	Sending build context to Docker daemon  161.8kB
+	Step 1/9 : FROM    golang:1.15.8 AS builder
 	1.15.8: Pulling from library/golang
 	0ecb575e629c: Pull complete 
 	7467d1831b69: Pull complete 
@@ -100,66 +103,52 @@
 	Digest: sha256:9fdb74150f8d8b07ee4b65a4f00ca007e5ede5481fa06e9fd33710890a624331
 	Status: Downloaded newer image for golang:1.15.8
 	 ---> 05499cedca62
-	Step 2/8 : WORKDIR /go/src/github.com/maengsanha
-	 ---> Running in 1a942a2bc0f7
-	Removing intermediate container 1a942a2bc0f7
-	 ---> feba1892f811
-	Step 3/8 : RUN go get github.com/maengsanha/docker-k8s-tutorial
-	 ---> Running in 703a20c666b0
-	Removing intermediate container 703a20c666b0
-	 ---> 1768143f01e7
-	Step 4/8 : WORKDIR /go/src/github.com/maengsanha/docker-k8s-tutorial
-	 ---> Running in a482387aabbb
-	Removing intermediate container a482387aabbb
-	 ---> 5648c8374d5e
-	Step 5/8 : RUN make build
-	 ---> Running in 81a07d520d33
-	go build -o bin/tutorial -v .
+	Step 2/9 : RUN     go get github.com/maengsanha/docker-k8s-tutorial
+	 ---> Running in 13e4a151b827
+	Removing intermediate container 13e4a151b827
+	 ---> f1dfc90bd437
+	Step 3/9 : WORKDIR /go/src/github.com/maengsanha/docker-k8s-tutorial/
+	 ---> Running in cef98f4eb710
+	Removing intermediate container cef98f4eb710
+	 ---> 670aaf94a8c3
+	Step 4/9 : RUN     make build
+	 ---> Running in b5764f3a0542
+	go build -o app .
 	go: downloading github.com/gin-gonic/gin v1.6.3
-	go: downloading github.com/go-playground/validator/v10 v10.2.0
-	go: downloading github.com/golang/protobuf v1.3.3
 	go: downloading github.com/gin-contrib/sse v0.1.0
-	go: downloading github.com/mattn/go-isatty v0.0.12
 	go: downloading github.com/ugorji/go v1.1.7
+	go: downloading github.com/golang/protobuf v1.3.3
+	go: downloading github.com/mattn/go-isatty v0.0.12
+	go: downloading github.com/go-playground/validator/v10 v10.2.0
 	go: downloading gopkg.in/yaml.v2 v2.2.8
 	go: downloading github.com/ugorji/go/codec v1.1.7
+	go: downloading golang.org/x/sys v0.0.0-20200116001909-b77594299b42
 	go: downloading github.com/leodido/go-urn v1.2.0
 	go: downloading github.com/go-playground/universal-translator v0.17.0
 	go: downloading github.com/go-playground/locales v0.13.0
-	go: downloading golang.org/x/sys v0.0.0-20200116001909-b77594299b42
-	github.com/go-playground/locales/currency
-	github.com/go-playground/locales
-	github.com/gin-gonic/gin/internal/bytesconv
-	github.com/gin-gonic/gin/internal/json
-	github.com/gin-contrib/sse
-	github.com/leodido/go-urn
-	github.com/go-playground/universal-translator
-	github.com/golang/protobuf/proto
-	github.com/ugorji/go/codec
-	gopkg.in/yaml.v2
-	github.com/go-playground/validator/v10
-	golang.org/x/sys/unix
-	github.com/mattn/go-isatty
-	github.com/gin-gonic/gin/render
-	github.com/gin-gonic/gin/binding
-	github.com/gin-gonic/gin
-	github.com/maengsanha/docker-k8s-tutorial/middleware/greeter
-	github.com/maengsanha/docker-k8s-tutorial
-	Removing intermediate container 81a07d520d33
-	 ---> b5f5be4f5638
-	Step 6/8 : FROM alpine:3.13.2
-	3.13.2: Pulling from library/alpine
-	ba3557a56b15: Pull complete 
-	Digest: sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be
-	Status: Downloaded newer image for alpine:3.13.2
-	 ---> 28f6e2705743
-	Step 7/8 : COPY --from=build /go/src/github.com/maengsanha/docker-k8s-tutorial/bin/tutorial /bin/
-	 ---> b28ba3d44283
-	Step 8/8 : CMD /bin/tutorial
-	 ---> Running in 913da5a58943
-	Removing intermediate container 913da5a58943
-	 ---> af158caf2e29
-	Successfully built af158caf2e29
+	Removing intermediate container b5764f3a0542
+	 ---> e3573e07350c
+	Step 5/9 : FROM    fedora:33
+	33: Pulling from library/fedora
+	3856270ab03a: Pull complete 
+	Digest: sha256:3738909921e6d370a5c8dea69951b66af69264ba6b4bc270c856a682d11d5542
+	Status: Downloaded newer image for fedora:33
+	 ---> 33c4a622f37c
+	Step 6/9 : WORKDIR /bin/
+	 ---> Running in 603619a66bca
+	Removing intermediate container 603619a66bca
+	 ---> e508b6bebe4c
+	Step 7/9 : COPY    --from=builder /go/src/github.com/maengsanha/docker-k8s-tutorial/app .
+	 ---> 240e9a52a33a
+	Step 8/9 : EXPOSE  8080
+	 ---> Running in db63ea2459e8
+	Removing intermediate container db63ea2459e8
+	 ---> 100d23b5753f
+	Step 9/9 : CMD     ["./app"]
+	 ---> Running in 4adfa766443c
+	Removing intermediate container 4adfa766443c
+	 ---> 866e0b01add7
+	Successfully built 866e0b01add7
 	Successfully tagged tutorial:latest
 	```
 
@@ -168,10 +157,10 @@
 	$ docker images
 	```
 	```bash
-	REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
-	tutorial     latest    af158caf2e29   About a minute ago   15.7MB
-	alpine       3.13.2    28f6e2705743   20 hours ago         5.61MB
-	golang       1.15.8    05499cedca62   8 days ago           839MB
+	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+	tutorial     latest    866e0b01add7   3 minutes ago   187MB
+	fedora       33        33c4a622f37c   18 hours ago    176MB
+	golang       1.15.8    05499cedca62   9 days ago      839MB
 	```
 
 <br>
@@ -190,5 +179,15 @@
 	$ docker ps
 	```
 	```bash
-	CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+	CONTAINER ID   IMAGE      COMMAND   CREATED         STATUS         PORTS                    NAMES
+	9d6d40e4afb4   tutorial   "./app"   1 second ago    Up 1 second    0.0.0.0:3002->8080/tcp   pensive_williams
+	af5c3a8eed6e   tutorial   "./app"   5 seconds ago   Up 4 seconds   0.0.0.0:3001->8080/tcp   wonderful_shamir
+	cb9a833a9952   tutorial   "./app"   9 seconds ago   Up 9 seconds   0.0.0.0:3000->8080/tcp   pensive_chaplygin
+	```
+
+<br>
+
+- Kill containers
+	```bash
+	$ docker kill {container_name}
 	```

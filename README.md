@@ -1,9 +1,9 @@
 <img src="https://miro.medium.com/max/4128/1*CO20-3P183ZAqrsJlF7n_A.png">
 
-#### Docker & Kubernetes tutorial
+## Docker & Kubernetes tutorial
 
-- [Docker install guide](https://github.com/maengsanha/docker-k8s-tutorial/blob/master/doc/docker-install.md)
-- [Kubernetes install guide](https://github.com/maengsanha/docker-k8s-tutorial/blob/master/doc/kubernetes-install.md)
+- [Docker installation guide](https://github.com/maengsanha/docker-k8s-tutorial/blob/master/doc/docker-install.md)
+- [Kubernetes installation guide](https://github.com/maengsanha/docker-k8s-tutorial/blob/master/doc/kubernetes-install.md)
 
 <br>
 
