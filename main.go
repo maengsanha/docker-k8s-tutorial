@@ -2,15 +2,15 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/maengsanha/docker-k8s-tutorial/middleware/greeter"
+	"github.com/maengsanha/docker-k8s-tutorial/router"
 )
 
 func main() {
 	engine := gin.Default()
 
 	gin.SetMode(gin.ReleaseMode)
-	api := engine.Group("/api")
-	api.GET("/hello", greeter.Greet())
 
-	engine.Run() // default: :8080
+	engine.GET("/hello", router.Greet())
+
+	engine.Run(":8080")
 }
