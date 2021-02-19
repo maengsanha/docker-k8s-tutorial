@@ -7,7 +7,7 @@
 
 <br>
 
-- After set up kubernetes, follow as below.
+- After set up Kubernetes, follow as below.
 
 
 
