@@ -1,7 +1,7 @@
 GOCMD = go
 GOBUILD = $(GOCMD) build
 GORUN = $(GOCMD) run
-BINARY_FILE = bin/tutorial
+BINARY_FILE = app
 RM = rm
 
 all: build
