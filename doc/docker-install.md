@@ -3,21 +3,21 @@
 - Install Docker
 	- on Linux (Debian based)
 	```bash
-	$ sudo apt-get update
-	$ sudo apt-get install curl
-	$ curl -fsSL https://get.docker.com/ | sudo sh
+  $ sudo apt-get update
+  $ sudo apt-get install curl
+  $ curl -fsSL https://get.docker.com/ | sudo sh
   $ mkdir -p /etc/systemd/system/docker.service.d
 	```
 	- on Linux (Red Hat based)
 	```bash
-	$ sudo yum update
-	$ sudo yum install curl
-	$ curl -fsSL https://get.docker.com/ | sudo sh
+  $ sudo yum update
+  $ sudo yum install curl
+  $ curl -fsSL https://get.docker.com/ | sudo sh
   $ mkdir -p /etc/systemd/system/docker.service.d
   ```
 	- on Mac OS
 	```bash
-	$ brew install --cask docker
+  $ brew install --cask docker
   $ mkdir -p /etc/systemd/system/docker.service.d
 	```
 
@@ -25,25 +25,25 @@
 
 - Start Docker
 	```bash
-	$ sudo systemctl start docker
+  $ sudo systemctl start docker
 	```	
 	<br>
 	
 	- to make docker run when startup, run
 	```bash
-	$ sudo systemctl enable --now docker
+  $ sudo systemctl enable --now docker
 	```
 
 	- to use docker without `sudo`, run
 	```bash
-	$ sudo usermod -aG docker $USER
+  $ sudo usermod -aG docker $USER
 	```
 
 <br>
 
 - Check Docker version
 	```bash
-	$ docker version
+  $ docker version
 	```
 	```bash
 	Client: Docker Engine - Community
@@ -80,14 +80,14 @@
 
 - Get source codes
 	```bash
-	$ git clone https://github.com/maengsanha/docker-k8s-tutorial.git
+  $ git clone https://github.com/maengsanha/docker-k8s-tutorial.git
 	```
 
 <br>
 
 - Build Docker image
 	```bash
-	$ docker build -t tutorial .
+  $ docker build -t tutorial .
 	```
 	```bash
 	Sending build context to Docker daemon  161.8kB
@@ -154,7 +154,7 @@
 
 - Check Docker image
 	```bash
-	$ docker images
+  $ docker images
 	```
 	```bash
 	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
@@ -167,16 +167,16 @@
 
 - Run container
 	```bash
-	$ docker run --rm -d -p 3000:8080 tutorial
-	$ docker run --rm -d -p 3001:8080 tutorial
-	$ docker run --rm -d -p 3002:8080 tutorial
+  $ docker run --rm -d -p 3000:8080 tutorial
+  $ docker run --rm -d -p 3001:8080 tutorial
+  $ docker run --rm -d -p 3002:8080 tutorial
 	```
 
 <br>
 
 - Check containers
 	```bash
-	$ docker ps
+  $ docker ps
 	```
 	```bash
 	CONTAINER ID   IMAGE      COMMAND   CREATED         STATUS         PORTS                    NAMES
@@ -189,5 +189,5 @@
 
 - Kill containers
 	```bash
-	$ docker kill {container_name}
+  $ docker kill {container_name}
 	```
