@@ -1,50 +1,64 @@
 ### [Docker](https://www.docker.com/) installation guide
 
+First, Run `sudo -i` to login as `root`.
+
 - Install Docker
+	
 	- on Linux (Debian based)
+	
 	```bash
-  	$ sudo apt-get update
-  	$ sudo apt-get install curl
-  	$ curl -fsSL https://get.docker.com/ | sudo sh
-  	$ mkdir -p /etc/systemd/system/docker.service.d
+  apt-get update
+  apt-get install curl
+  curl -fsSL https://get.docker.com/ | sudo sh
+  mkdir -p /etc/systemd/system/docker.service.d
 	```
+	
 	- on Linux (Red Hat based)
+	
 	```bash
-  	$ sudo yum update
-  	$ sudo yum install curl
-  	$ curl -fsSL https://get.docker.com/ | sudo sh
-  	$ mkdir -p /etc/systemd/system/docker.service.d
-  	```
+  yum update
+  yum install curl
+  curl -fsSL https://get.docker.com/ | sudo sh
+  mkdir -p /etc/systemd/system/docker.service.d
+  ```
+	
 	- on Mac OS
+	
 	```bash
-  	$ brew install --cask docker
-  	$ mkdir -p /etc/systemd/system/docker.service.d
+  brew install --cask docker
+  mkdir -p /etc/systemd/system/docker.service.d
 	```
 
 <br>
 
 - Start Docker
+	
 	```bash
-  	$ sudo systemctl start docker
-	```	
+  systemctl start docker
+	```
+	
 	<br>
 	
 	- to make docker run when startup, run
+	
 	```bash
-  	$ sudo systemctl enable --now docker
+  systemctl enable --now docker
 	```
 
 	- to use docker without `sudo`, run
+	
 	```bash
-  	$ sudo usermod -aG docker $USER
+  usermod -aG docker $USER
 	```
 
 <br>
 
 - Check Docker version
+	
 	```bash
-  	$ docker version
+  docker version
 	```
+	
 	```bash
 	Client: Docker Engine - Community
 	 Version:           20.10.3
@@ -78,17 +92,20 @@
 
 <br>
 
-- Get source codes
+- Clone source codes
+	
 	```bash
-  	$ git clone https://github.com/maengsanha/docker-k8s-tutorial.git
+  git clone https://github.com/maengsanha/docker-k8s-tutorial.git
 	```
 
 <br>
 
 - Build Docker image
+	
 	```bash
-  	$ docker build -t tutorial .
+  docker build -t tutorial .
 	```
+	
 	```bash
 	Sending build context to Docker daemon  161.8kB
 	Step 1/9 : FROM    golang:1.15.8 AS builder
@@ -153,9 +170,11 @@
 	```
 
 - Check Docker image
+	
 	```bash
-  	$ docker images
+  docker images
 	```
+	
 	```bash
 	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 	tutorial     latest    866e0b01add7   3 minutes ago   187MB
@@ -165,19 +184,22 @@
 
 <br>
 
-- Run container
+- Run containers
+	
 	```bash
-  	$ docker run --rm -d -p 3000:8080 tutorial
-  	$ docker run --rm -d -p 3001:8080 tutorial
-  	$ docker run --rm -d -p 3002:8080 tutorial
+  docker run --rm -d -p 3000:8080 tutorial
+  docker run --rm -d -p 3001:8080 tutorial
+  docker run --rm -d -p 3002:8080 tutorial
 	```
 
 <br>
 
 - Check containers
+	
 	```bash
-  $ docker ps
+  docker ps
 	```
+	
 	```bash
 	CONTAINER ID   IMAGE      COMMAND   CREATED         STATUS         PORTS                    NAMES
 	9d6d40e4afb4   tutorial   "./app"   1 second ago    Up 1 second    0.0.0.0:3002->8080/tcp   pensive_williams
@@ -189,5 +211,5 @@
 
 - Kill containers
 	```bash
-  	$ docker kill {container_name}
+  docker kill {container_name}
 	```

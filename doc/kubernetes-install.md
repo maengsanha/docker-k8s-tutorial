@@ -1,8 +1,11 @@
 ### [Kubernetes](https://kubernetes.io/) installation guide
 
+First, run `sudo -i` to login as `root`.
+
 - Install `kubeadm`, `kubelet`, `kubectl` on master and nodes<br>
-	First, run `sudo -i` to enter by `root`
+	
 	- on Linux (Debian based)
+	
 	```bash
 	apt-get update && apt-get install -y apt-transport-https curl
 	curl -s [https://packages.cloud.google.com/apt/doc/apt-](https://packages.cloud.google.com/apt/doc/apt-)key.gpg | apt-key add -
@@ -10,19 +13,22 @@
 	deb [https://apt.kubernetes.io/](https://apt.kubernetes.io/) kubernetes-xenial main
 	EOF
 	apt-get update
-	apt-get install  -y kubelet kubeadm kubectl
-	apt-mark hold kubelet kubeadm kubectl
-  	systemctl enable --now kubelet
+	apt-get install -y kubelet kubeadm kubectl
+  apt-mark hold kubelet kubeadm kubectl
+	systemctl enable --now kubelet
 	swapoff -a
 	```
 
 <br>
 
 - master
+	
 	- Initialize `kubeadm`
+	
 	```bash
-	kubeadm init --pod-network-cidr=10.244.0.0/16
+	$ kubeadm init --pod-network-cidr=10.244.0.0/16
 	```
+	
 	```bash
 	[init] Using Kubernetes version: vX.Y.Z
 	[preflight] Running pre-flight checks
@@ -88,22 +94,28 @@
 		
 		kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 	```
+	
 	- If you want to reset pod network option, run `kubeadm reset`
 
 	- Copy config files to `~/.kube/`
+	
 	```bash
-	$ mkdir  -p  $HOME/.kube
-	$ sudo cp  -i /etc/kubernetes/admin.conf $HOME/.kube/config
-	$ sudo chown  $(id  -u):$(id  -g)  $HOME/.kube/config
+	mkdir -p $HOME/.kube
+	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+	sudo chown $(id  -u):$(id  -g) $HOME/.kube/config
 	```
 
 	- Config pod network using `Calico` or `Flannel`
+		
 		- config with `Calico`
+		
 		```bash
-		$ curl https://docs.projectcalico.org/manifests/canal.yaml -O
-		$ kubectl apply -f canal.yaml
+		curl https://docs.projectcalico.org/manifests/canal.yaml -O
+		kubectl apply -f canal.yaml
 		```
+		
 		- config with `Flannel`
+		
 		```bash
 		$ kubectl apply -f [https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml](https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml)
 		```
@@ -111,13 +123,14 @@
 <br>
 
 - node
-	```bash
-	$ kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
-	```
+	
+```bash
+kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+```
 
 <br>
 
 - Check node status
-	```bash
-	$ kubectl get nodes
-	```
+```bash
+kubectl get nodes
+```
