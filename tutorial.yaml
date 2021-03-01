@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tutorial
+  labels:
+    service-name: tutorial
+spec:
+  containers:
+  - name: tutorial
+    image: 9rum/tutorial
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tutorial
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+    targetPort: 8080
+  selector:
+    service-name: tutorial
